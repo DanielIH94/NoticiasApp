@@ -29,15 +29,12 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <form class="comment-form" (submit)="submitComment($event)">
+                    <form class="comment-form" [formGroup]="comentarioForm" (submit)="submitComment($event)">
                         <div class="comment-container">
                             <mat-form-field class="comment-full-width" appearance="fill">
                                 <mat-label>Haz un comentario</mat-label>
-                                <textarea matInput placeholder="Comentario" required></textarea>
+                                <textarea matInput placeholder="Comentario" formControlName="comentario"></textarea>
                             </mat-form-field>
-                            <!-- <button mat-mini-fab>
-                                <mat-icon [inline]="true" [ngStyle]="{'fontSize':'26px'}">send</mat-icon>
-                            </button> -->
                             <div>
                                 <button mat-flat-button color="accent">Comentar</button>
                             </div>

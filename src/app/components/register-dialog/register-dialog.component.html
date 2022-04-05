@@ -7,22 +7,24 @@
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Username</mat-label>
             <input type="email" matInput formControlName="user" [errorStateMatcher]="matcher" autocomplete="off">
-            <mat-error *ngIf="registerForm.controls['user'].hasError('email') && !registerForm.controls['user'].hasError('required')">
+            <mat-error
+                *ngIf="registerForm.controls['user'].hasError('email') && !registerForm.controls['user'].hasError('required')">
                 Por favor introduce un nombre de usuario
             </mat-error>
             <mat-error *ngIf="registerForm.controls['user'].hasError('required')">
-                Email is <strong>required</strong>
+                El nombre de usuario es <strong>requerido</strong>
             </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Contraseña</mat-label>
             <input type="password" matInput formControlName="password" [errorStateMatcher]="matcher" autocomplete="off">
-            <mat-error *ngIf="registerForm.controls['password'].hasError('email') && !registerForm.controls['password'].hasError('required')">
+            <mat-error
+                *ngIf="registerForm.controls['password'].hasError('email') && !registerForm.controls['password'].hasError('required')">
                 Por favor introduce tu contraseña
             </mat-error>
             <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
-                Email is <strong>required</strong>
+                La contraseña es <strong>requerida</strong>
             </mat-error>
         </mat-form-field>
 

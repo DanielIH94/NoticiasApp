@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
+import { ComentarioInputModel } from '../models/ComentarioInputModel';
+import { NotaInputModel } from '../models/NotaInputModel';
 import { NoteModel } from '../models/NoteModel';
 import { RegisterUserModel } from '../models/RegisterUserModel';
 import { UserModel } from '../models/UserModel';
@@ -81,7 +83,7 @@ export class GraphqlService {
       pollInterval: 1000
     }).valueChanges
   }
-  
+
   getUserById(id: number): Observable<any> {
     let query = gql`
     query Usuario($id:Int!){
@@ -134,6 +136,7 @@ export class GraphqlService {
           contenido
           fechaComentario
           usuario{
+            idUsuario
             nombreUsuario
             foto
           }
@@ -157,7 +160,7 @@ export class GraphqlService {
   }
 
   //Metodo para almacenar una nota
-  newNote(nota: NoteModel, idUsuario: number) {
+  newNote(nota: NotaInputModel, idUsuario: number) {
     let mutation = gql`
     mutation AddNota($nota:NotaInput, $idUsuario:Int){
       addNota(nota:$nota, idUsuario:$idUsuario){
@@ -169,6 +172,22 @@ export class GraphqlService {
     return this.apollo.mutate({
       mutation,
       variables: { nota, idUsuario },
+    })
+  }
+
+  //Método para agregar un nuevo comentario
+  newComentario(comentario: ComentarioInputModel, idNota: number, idUsuario: number) {
+    let mutation = gql`
+    mutation AddComentario($comentario:ComentarioInput, $idNota:Int, $idUsuario:Int){
+      addComentario(comentario:$comentario, idNota:$idNota, idUsuario:$idUsuario){
+        idComentario
+      }
+    }
+    `
+
+    return this.apollo.mutate({
+      mutation,
+      variables: { comentario, idNota, idUsuario },
     })
   }
 }

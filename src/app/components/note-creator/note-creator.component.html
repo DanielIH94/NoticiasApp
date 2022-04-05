@@ -1,26 +1,40 @@
-<div class="note-creator-container" *ngIf="hasPermission()">
+<div class="note-creator-container" *ngIf="hasPermission">
     <div class="title-notes">
         Publica una nota
     </div>
     <div class="container" [ngStyle]="{'width.px':width}">
         <div class="avatar-container">
-            <img id="avatar" src="nada" onerror="this.src='../assets/profile.png'" />
+            <mat-spinner diameter=80 *ngIf="loading"></mat-spinner>
+            <img id="avatar" src="data:image/jpeg;base64,{{userInfo.foto}}" onerror="this.src='../assets/profile.png'"
+                *ngIf="!loading" />
         </div>
         <div class="form-container">
-            <form class="new-post-form">
+            <form class="new-post-form" [formGroup]="notaForm" (submit)="onSubmit($event)">
                 <div class="inputs-container">
-                    <mat-form-field class="new-post-full-width" appearance="fill">
+                    <mat-form-field class="new-post-full-width" appearance="fill" >
                         <mat-label>Título</mat-label>
-                        <input matInput placeholder="El título de mi nota" autocomplete="off">
+                        <input matInput placeholder="El título de mi nota" autocomplete="off" formControlName="titulo">
+                        <mat-error *ngIf="notaForm.controls['titulo'].hasError('titulo') && !notaForm.controls['titulo'].hasError('required')">
+                            No puedes dejar este compo vacio
+                        </mat-error>
+                        <mat-error *ngIf="notaForm.controls['titulo'].hasError('required')">
+                            No puedes dejar este compo vacio
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="new-post-full-width" appearance="fill">
                         <mat-label>Contenido</mat-label>
-                        <textarea matInput placeholder="Hoy me siento..."></textarea>
+                        <textarea matInput placeholder="Hoy me siento..." formControlName="contenido"></textarea>
+                        <mat-error *ngIf="notaForm.controls['contenido'].hasError('contenido') && !notaForm.controls['contenido'].hasError('required')">
+                            No puedes dejar este compo vacio
+                        </mat-error>
+                        <mat-error *ngIf="notaForm.controls['contenido'].hasError('contenido')">
+                            No puedes dejar este compo vacio
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="button-container">
-                    <button mat-flat-button color="primary">Publicar</button>
+                    <button mat-flat-button color="primary" >Publicar</button>
                 </div>
             </form>
         </div>

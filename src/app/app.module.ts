@@ -38,6 +38,7 @@ import { RegisterDialogComponent } from './components/register-dialog/register-d
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ErrorComponent } from './components/error/error.component';
 import { CookieService } from 'ngx-cookie-service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { CookieService } from 'ngx-cookie-service';
     MatChipsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
