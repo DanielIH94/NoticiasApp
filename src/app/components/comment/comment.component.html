@@ -5,7 +5,8 @@
                 <div class="user-info">
                     <img id="user-img" src="data:image/jpeg;base64,{{usuario.foto}}" />
                     <div>
-                        <div><span class="username">@{{usuario.nombreUsuario}}</span></div>
+                        <div><span class="username">@{{usuario.nombreUsuario}}{{interno?' (empleado)':'
+                                (externo)'}}</span></div>
                         <div class="fecha-comentario"><span>{{fecha|date}}</span></div>
                     </div>
                 </div>
@@ -17,11 +18,11 @@
             </mat-list>
         </mat-card-content>
         <mat-card-actions>
-            <form class="comment-form" (submit)="submitResponse($event)">
+            <form class="comment-form" [formGroup]="respuestaForm" (submit)="submitResponse($event)">
                 <div class="comment-container">
                     <mat-form-field class="comment-full-width" appearance="fill">
                         <mat-label>Responder al comentario</mat-label>
-                        <input matInput placeholder="Respuesta" autocomplete="off" required="">
+                        <input matInput placeholder="Respuesta" autocomplete="off" formControlName="respuesta">
                     </mat-form-field>
                     <button mat-flat-button color="primary">Responder</button>
                 </div>

@@ -43,7 +43,7 @@
 
                     <mat-list>
                         <app-comment *ngFor="let comentario of comentarios" fecha={{comentario.fechaComentario}}
-                            contenido={{comentario.contenido}} [usuario]="comentario.usuario"
+                            contenido={{comentario.contenido}} [usuario]="comentario.usuario" [comentario]="comentario"
                             [respuestas]="comentario.respuestas">
                         </app-comment>
                     </mat-list>

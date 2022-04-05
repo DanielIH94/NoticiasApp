@@ -5,6 +5,7 @@ import { ComentarioInputModel } from '../models/ComentarioInputModel';
 import { NotaInputModel } from '../models/NotaInputModel';
 import { NoteModel } from '../models/NoteModel';
 import { RegisterUserModel } from '../models/RegisterUserModel';
+import { RespuestaInputModel } from '../models/RespuestaInputModel';
 import { UserModel } from '../models/UserModel';
 
 /**
@@ -93,6 +94,7 @@ export class GraphqlService {
         foto
         personal{
           nombre
+          apellidoPaterno
         }
       }
     }
@@ -128,6 +130,7 @@ export class GraphqlService {
         contenido
         fechaNota
         usuario{
+          idUsuario
           nombreUsuario
           foto
         }
@@ -145,6 +148,7 @@ export class GraphqlService {
             contenido
             fechaRespuesta
             usuario{
+              idUsuario
               nombreUsuario
             }
           }
@@ -188,6 +192,21 @@ export class GraphqlService {
     return this.apollo.mutate({
       mutation,
       variables: { comentario, idNota, idUsuario },
+    })
+  }
+
+  newRespuesta(respuesta: RespuestaInputModel, idComentario: number, idUsuario: number) {
+    let mutation = gql`
+    mutation AddRespuesta($respuesta:RespuestaInput, $idComentario:Int, $idUsuario:Int){
+      addRespuesta(respuesta:$respuesta, idUsuario:$idUsuario, idComentario:$idComentario){
+        idRespuesta
+      }
+    }
+    `
+
+    return this.apollo.mutate({
+      mutation,
+      variables: { respuesta, idComentario, idUsuario },
     })
   }
 }

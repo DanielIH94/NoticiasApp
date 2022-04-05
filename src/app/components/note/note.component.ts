@@ -49,12 +49,12 @@ export class NoteComponent implements OnInit {
     this.nuevoComentario({
       contenido,
       fechaComentario: sqlDate
-    }, this.idNota, this.usuario.idUsuario)
+    })
 
     this.comentarioForm.reset()
   }
 
-  private nuevoComentario(comentario: ComentarioInputModel, idUsuario: number, idNota: number) {
+  private nuevoComentario(comentario: ComentarioInputModel) {
     let iu = JSON.parse(this.session.currentUser()).id
     
     this.graphql.newComentario(comentario, this.idNota, iu).subscribe(({ data }) => {

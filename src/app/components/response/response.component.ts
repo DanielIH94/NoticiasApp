@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/UserModel';
+import { GraphqlService } from 'src/app/services/graphql.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-response',
@@ -10,9 +12,20 @@ export class ResponseComponent implements OnInit {
   @Input() contenido!: string
   @Input() fecha!: string
   @Input() usuario!: UserModel
-  constructor() { }
+
+  interno!: boolean
+
+  constructor(private graphql: GraphqlService) { }
 
   ngOnInit(): void {
+    this.getStatus()
+  }
+
+  private getStatus() {
+    this.graphql.isInterno(this.usuario.idUsuario).subscribe(({ data }) => {
+      
+      this.interno = data.isInterno
+    })
   }
 
 }

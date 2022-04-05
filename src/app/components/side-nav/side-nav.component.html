@@ -13,15 +13,18 @@
     </div>
     <div class="profile-menu">
         <div>
-            <img id="avatar" src="../../../assets/dumy.jpg" />
+            <mat-spinner diameter=50 *ngIf="loading"></mat-spinner>
+            <img id="avatar" src="data:image/png;base64,{{usuario.foto}}" onerror="this.src = '../assets/profile.png'" *ngIf="!loading"/>
         </div>
         <div class="user-cs">
             <div style="display: block;">
                 <div>
-                    <span class="username">@Daniel213</span>
+                    <span class="username" *ngIf="loading">cargando...</span>
+                    <span class="username" *ngIf="!loading">@{{usuario.nombreUsuario}}</span>
                 </div>
                 <div>
-                    <span class="name">Daniel Ibarra</span>
+                    <span class="name" *ngIf="loading">cargando...</span>
+                    <span class="name">{{fullName}}</span>
                 </div>
             </div>
             <div>
