@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <div class="menu">
+        <app-side-nav></app-side-nav>
+    </div>
+    <div class="main">
+        <div class="center">
+            <app-note-creator width="100%"></app-note-creator>
+            <div class="notes-feed">
+                <ng-container *ngIf="loading">
+                    cargando..
+                </ng-container>
+                <app-note *ngFor="let nota of notas" [titulo]="nota.titulo" [contenido]="nota.contenido"
+                    [comentarios]="nota.comentarios" [fecha]="nota.fechaNota" [usuario]="nota.usuario"></app-note>
+
+            </div>
+        </div>
+    </div>
+</div>

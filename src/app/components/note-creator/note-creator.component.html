@@ -1,0 +1,28 @@
+<div class="note-creator-container" *ngIf="hasPermission()">
+    <div class="title-notes">
+        Publica una nota
+    </div>
+    <div class="container" [ngStyle]="{'width.px':width}">
+        <div class="avatar-container">
+            <img id="avatar" src="../../../assets/dumy.jpg" />
+        </div>
+        <div class="form-container">
+            <form class="new-post-form">
+                <div class="inputs-container">
+                    <mat-form-field class="new-post-full-width" appearance="fill">
+                        <mat-label>Título</mat-label>
+                        <input matInput placeholder="El título de mi nota" autocomplete="off">
+                    </mat-form-field>
+
+                    <mat-form-field class="new-post-full-width" appearance="fill">
+                        <mat-label>Contenido</mat-label>
+                        <textarea matInput placeholder="Hoy me siento..."></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="button-container">
+                    <button mat-flat-button color="primary">Publicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

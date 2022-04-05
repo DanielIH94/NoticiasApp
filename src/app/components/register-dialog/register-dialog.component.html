@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Install Angular</h2>
+<mat-dialog-content class="mat-typography">
+    <form class="example-form" [formGroup]="registerForm">
+
+        <app-file-upload formControlName="photo"></app-file-upload>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input type="email" matInput formControlName="user" [errorStateMatcher]="matcher" autocomplete="off">
+            <mat-error *ngIf="registerForm.controls['user'].hasError('email') && !registerForm.controls['user'].hasError('required')">
+                Por favor introduce un nombre de usuario
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['user'].hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput formControlName="password" [errorStateMatcher]="matcher" autocomplete="off">
+            <mat-error *ngIf="registerForm.controls['password'].hasError('email') && !registerForm.controls['password'].hasError('required')">
+                Por favor introduce tu contraseña
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>¿Tienes una clave de Empleado?</mat-label>
+            <input type="number" matInput formControlName="key" [errorStateMatcher]="matcher" autocomplete="off">
+            <mat-error
+                *ngIf="registerForm.controls['key'].hasError('email') && !registerForm.controls['key'].hasError('required')">
+                Por favor introduce tu contraseña
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['key'].hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button cdkFocusInitial (click)="register()">Registrar</button>
+</mat-dialog-actions>

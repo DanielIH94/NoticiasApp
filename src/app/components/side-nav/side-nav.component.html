@@ -1,0 +1,41 @@
+<div class="container">
+    <div>
+        <div class="logo">
+            <img height="100" src="../../../assets/logo.jpg" alt="" srcset="">
+        </div>
+        <div class="menu-list">
+            <mat-nav-list>
+                <a *ngFor="let item of menuItems" mat-list-item>
+                    <app-side-nav-item icon="{{item.icon}}" text="{{item.text}}"></app-side-nav-item>
+                </a>
+            </mat-nav-list>
+        </div>
+    </div>
+    <div class="profile-menu">
+        <div>
+            <img id="avatar" src="../../../assets/dumy.jpg" />
+        </div>
+        <div class="user-cs">
+            <div style="display: block;">
+                <div>
+                    <span class="username">@Daniel213</span>
+                </div>
+                <div>
+                    <span class="name">Daniel Ibarra</span>
+                </div>
+            </div>
+            <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </div>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    <span>Cerrar sesión</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</div>

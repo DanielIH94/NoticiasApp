@@ -1,0 +1,49 @@
+<div class="container">
+    <mat-card>
+        <mat-card-content>
+            <div class="title">
+                <h1>Inicia sesión</h1>
+            </div>
+            <div class="user-welcome">
+                <div [ngStyle]="{'text-align':'center'}">
+                    <img class="user-img" src="{{welcome.foto}}" />
+                    <h2>¡¡Hola {{welcome.nombre}} Bienvenido(a)!!</h2>
+                </div>
+            </div>
+            <form class="example-form" (submit)="submitLogin($event)">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input type="email" matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
+                        autocomplete="off" (input)="changeEmail()">
+                    <mat-error *ngIf="userFormControl.hasError('email') && !userFormControl.hasError('required')">
+                        Por favor introduce un nombre de usuario
+                    </mat-error>
+                    <mat-error *ngIf="userFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Contraseña</mat-label>
+                    <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+                        autocomplete="off">
+                    <mat-error
+                        *ngIf="passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')">
+                        Por favor introduce tu contraseña
+                    </mat-error>
+                    <mat-error *ngIf="passwordFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <button class="submit-btn" mat-flat-button color="primary">Iniciar sesión</button>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="actions">
+                ¿No tienes una cuenta?
+                <button mat-flat-button color="accent" (click)="openRegister()">Registrate</button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

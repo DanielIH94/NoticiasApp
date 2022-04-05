@@ -1,0 +1,174 @@
+import { Injectable } from '@angular/core';
+import { Apollo, gql } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { NoteModel } from '../models/NoteModel';
+import { RegisterUserModel } from '../models/RegisterUserModel';
+import { UserModel } from '../models/UserModel';
+
+/**
+ * Servicio utilizado para hacer operaciones a traves del API
+ */
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GraphqlService {
+
+  public notes!: NoteModel[]
+
+  constructor(private apollo: Apollo) { }
+
+  //Método para hacer una peticion de login
+  login(username: string, password: string) {
+    let query = gql`
+    query Login($username:String, $password:String){
+      login(username:$username, password:$password){
+        idUsuario
+        foto
+        notas{
+          contenido
+        }
+      }
+    }
+    `
+
+    return this.apollo.watchQuery<any>({
+      query,
+      variables: { username, password }
+    }).valueChanges
+
+  }
+
+  //Método para registrar un nuevo usuario
+  register(usuario: RegisterUserModel, idPersonal?: number) {
+    let mutation = gql`
+    mutation RegistrarUsuario($usuario:UsuarioInput!, $idPersonal:Int){
+      register(usuario:$usuario, idPersonal:$idPersonal){
+        idUsuario
+      }
+    }
+    `
+    console.log(mutation);
+
+
+    return this.apollo.mutate({
+      mutation,
+      variables: { usuario, idPersonal },
+    })
+  }
+
+  /*
+  * Método para obtener la información de un usuario por su nombre
+  * de usuario
+  */
+  getUserByUsername(nombreUsuario: string): Observable<any> {
+    let query = gql`
+    query GetUsuarioByNombreUsuario($nombreUsuario:String!){
+      usuarioByNombreUsuario(nombreUsuario:$nombreUsuario){
+        idUsuario
+        nombreUsuario
+        foto
+        personal{
+          nombre
+        }
+      }
+    }
+    `
+
+    return this.apollo.watchQuery<any>({
+      query,
+      variables: { nombreUsuario },
+      pollInterval: 1000
+    }).valueChanges
+  }
+  
+  getUserById(id: number): Observable<any> {
+    let query = gql`
+    query Usuario($id:Int!){
+      usuario(ID:$id){
+        idUsuario
+        nombreUsuario
+        foto
+        personal{
+          nombre
+        }
+      }
+    }
+    `
+
+    return this.apollo.watchQuery<any>({
+      query,
+      variables: { id },
+      pollInterval: 1000
+    }).valueChanges
+  }
+
+  isInterno(id: number) {
+    let query = gql`
+    query IsInterno($id:Int){
+      isInterno(userID:$id)
+    }
+    `
+    return this.apollo.watchQuery<any>({
+      query,
+      variables: { id },
+    }).valueChanges
+  }
+
+  //Método para obtener todas las notas
+  getNotes(): Observable<any> {
+
+    let query = gql`
+    query GetNotas{
+      notas{
+        idNota
+        titulo
+        contenido
+        fechaNota
+        usuario{
+          nombreUsuario
+          foto
+        }
+        comentarios{
+          idComentario
+          contenido
+          fechaComentario
+          usuario{
+            nombreUsuario
+            foto
+          }
+          respuestas{
+            idRespuesta
+            contenido
+            fechaRespuesta
+            usuario{
+              nombreUsuario
+            }
+          }
+        }
+      }
+    }
+    `
+
+    return this.apollo.watchQuery<any>({
+      query,
+      pollInterval: 1000,
+    }).valueChanges
+  }
+
+  //Metodo para almacenar una nota
+  newNote(nota: NoteModel, idUsuario: number) {
+    let mutation = gql`
+    mutation AddNota($nota:NotaInput, $idUsuario:Int){
+      addNota(nota:$nota, idUsuario:$idUsuario){
+        idNota
+      }
+    }
+    `
+
+    return this.apollo.mutate({
+      mutation,
+      variables: { nota, idUsuario },
+    })
+  }
+}

@@ -1,0 +1,31 @@
+<div class="container">
+    <mat-card class="example-card">
+        <mat-card-content>
+            <div class="comment-info">
+                <div class="user-info">
+                    <img id="user-img" src="data:image/jpeg;base64,{{usuario.foto}}" />
+                    <div>
+                        <div><span class="username">@{{usuario.nombreUsuario}}</span></div>
+                        <div class="fecha-comentario"><span>{{fecha|date}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <p class="contenido">{{contenido}}</p>
+            <mat-list>
+                <app-response *ngFor="let respuesta of respuestas" [contenido]="respuesta.contenido"
+                    [fecha]="respuesta.fechaRespuesta" [usuario]="respuesta.usuario"></app-response>
+            </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+            <form class="comment-form" (submit)="submitResponse($event)">
+                <div class="comment-container">
+                    <mat-form-field class="comment-full-width" appearance="fill">
+                        <mat-label>Responder al comentario</mat-label>
+                        <input matInput placeholder="Respuesta" autocomplete="off" required="">
+                    </mat-form-field>
+                    <button mat-flat-button color="primary">Responder</button>
+                </div>
+            </form>
+        </mat-card-actions>
+    </mat-card>
+</div>

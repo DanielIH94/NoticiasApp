@@ -1,0 +1,5 @@
+<div class="container">
+    <input #inputFile class="file-input" type="file" hidden />
+    <button mat-flat-button color="accent" (click)="selectFile($event)">Sube una imagen</button>
+    <span class="fileName">{{file ? file.name : '' }}</span>
+</div>

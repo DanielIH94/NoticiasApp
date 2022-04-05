@@ -1,0 +1,59 @@
+<div class="container">
+    <mat-card class="example-card">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-subtitle>{{fecha|date}}</mat-card-subtitle>
+        <mat-card-content>
+            <div class="user-info-note">
+                <div>
+                    <img id="user-img" src="data:image/jpeg;base64,{{usuario.foto}}">
+                </div>
+                <div class="usuario-nombre">
+                    <div>
+                        @{{usuario.nombreUsuario}}
+                    </div>
+                </div>
+            </div>
+            <p class="content">{{contenido}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-icon-button [matTooltip]="stateComments ? 'Ocultar' : 'Comentar'" matTooltipPosition="right"
+                (click)="toggleComments()">
+                <mat-icon>comment</mat-icon>
+            </button>
+            <mat-accordion>
+                <mat-expansion-panel disabled="true" (opened)="stateComments = true" (closed)="stateComments = false"
+                    [expanded]="stateComments">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span>{{comentarios.length}} comentarios</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <form class="comment-form" (submit)="submitComment($event)">
+                        <div class="comment-container">
+                            <mat-form-field class="comment-full-width" appearance="fill">
+                                <mat-label>Haz un comentario</mat-label>
+                                <textarea matInput placeholder="Comentario" required></textarea>
+                            </mat-form-field>
+                            <!-- <button mat-mini-fab>
+                                <mat-icon [inline]="true" [ngStyle]="{'fontSize':'26px'}">send</mat-icon>
+                            </button> -->
+                            <div>
+                                <button mat-flat-button color="accent">Comentar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <mat-list>
+                        <app-comment *ngFor="let comentario of comentarios" fecha={{comentario.fechaComentario}}
+                            contenido={{comentario.contenido}} [usuario]="comentario.usuario"
+                            [respuestas]="comentario.respuestas">
+                        </app-comment>
+                    </mat-list>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card-actions>
+    </mat-card>
+
+</div>
